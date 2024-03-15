@@ -1,14 +1,15 @@
 #' Wrapper around extract to allow regular expressions
 #'
 #' @param fit The fitted stan object
-#' @param regex Pattern, defaults to '.' to select everything
-#' @param as_df whether to return the default list thing like stan, or a tibble
+#' @param pars Pattern for which parameters to use, defaults to '.' to select everything
+#' @param excl_pars Pattern for which parameters to exclude. Takes precedence over pars. Defaults to raw and lp__
+#' @param as_df Whether to return the default list thing like stan, or a tibble
 #'
 #' @export
 #'
-regextract <- function(fit, regex='.', as_df=TRUE) {
-    pars <- fit@sim$pars_oi[stringr::str_detect(fit@sim$pars_oi,regex)]
-    ext <- rstan::extract(fit,pars=pars)
+regextract <- function(fit, pars='.', excl_pars='raw|^lp__$', as_df=TRUE) {
+    poi <- regex_pars(fit, pars=pars, excl_pars=excl_pars)
+    ext <- rstan::extract(fit,pars=poi)
     if (as_df) {
         return(tibble::as_tibble(as.data.frame(ext)))
     } else {

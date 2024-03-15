@@ -4,14 +4,16 @@
 \alias{regextract}
 \title{Wrapper around extract to allow regular expressions}
 \usage{
-regextract(fit, regex = ".", as_df = TRUE)
+regextract(fit, pars = ".", excl_pars = "raw|^lp__$", as_df = TRUE)
 }
 \arguments{
 \item{fit}{The fitted stan object}
 
-\item{regex}{Pattern, defaults to '.' to select everything}
+\item{pars}{Pattern for which parameters to use, defaults to '.' to select everything}
 
-\item{as_df}{whether to return the default list thing like stan, or a tibble}
+\item{excl_pars}{Pattern for which parameters to exclude. Takes precedence over pars. Defaults to raw and lp__}
+
+\item{as_df}{Whether to return the default list thing like stan, or a tibble}
 }
 \description{
 Wrapper around extract to allow regular expressions

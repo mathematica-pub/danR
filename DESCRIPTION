@@ -9,8 +9,14 @@ Description: Some utilities for stan.
 License: ???
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
 Imports: 
+    dplyr,
+    GGally,
+    ggplot2,
+    glue,
     rstan,
     stringr,
-    tibble
+    tibble,
+    tidyr,
+    hms
