@@ -13,6 +13,12 @@ monitor <- function(chains,
                     extra_cols=NULL) {
     tokeep <- c('par', 'mean', 'sd', 'n_eff', 'Rhat', extra_cols)
 
+    #cmdstan returns a draws_array, which does not drop dimensions when subset (so chains[,,i] is still an array not a matrix)
+    #and that breaks stan's brains
+    if (identical(sort(class(chains)), c('array','draws','draws_array'))) {
+        class(chains) <- 'array'
+    }
+
     smry <- rstan::monitor(chains, warmup=warmup, print=FALSE, probs=probs) %>%
         tibble::as_tibble(rownames = 'par') %>%
         dplyr::select(dplyr::all_of(tokeep))
