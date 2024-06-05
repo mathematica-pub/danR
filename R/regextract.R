@@ -9,7 +9,17 @@
 #'
 regextract <- function(fit, pars='.', excl_pars='raw|^lp__$', as_df=TRUE) {
     poi <- regex_pars(fit, pars=pars, excl_pars=excl_pars)
-    ext <- rstan::extract(fit,pars=poi)
+    if ('stanfit' %in% class(fit)) {
+        ext <- rstan::extract(fit,pars=poi)
+    } else if ('CmdStanFit' %in% class(fit)) {
+        ext <- fit$draws(variables = poi)
+        nms <- dimnames(ext)[[3]]
+        ext <- array(ext, dim=c(prod(dim(ext)[1:2]), dim(ext)[3]))
+        dimnames(ext) <- list(NULL, nms)
+    } else {
+        stop('fit not from rstan or cmdstanr')
+    }
+
     if (as_df) {
         return(tibble::as_tibble(as.data.frame(ext)))
     } else {

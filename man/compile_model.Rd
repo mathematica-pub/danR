@@ -2,15 +2,17 @@
 % Please edit documentation in R/compile_model.R
 \name{compile_model}
 \alias{compile_model}
-\title{Wrapper to compile model and save as RDS. Only recompiles if stan file has changed}
+\title{Wrapper to compile model and check syntax}
 \usage{
-compile_model(model, model_folder = "models")
+compile_model(model, model_folder = "models", rstan = FALSE)
 }
 \arguments{
 \item{model}{Name of model to compile. Exclude the ".stan" ending}
 
 \item{model_folder}{Path to model, defaults to "models"}
+
+\item{rstan}{Whether to compile using Rstan and save an RDS, or rely on cmdstanr}
 }
 \description{
-Wrapper to compile model and save as RDS. Only recompiles if stan file has changed
+Wrapper to compile model and check syntax
 }
