@@ -31,6 +31,8 @@ qq_approx <- function(posterior, dist='norm', n=1000, distance='sq') {
         return(optim(c(pars$beta$alpha, pars$beta$beta), fn=qq_beta_approx, target_qs=target_qs, n=n, distfun=distfun))
     } else if (dist=='gamma') {
         return(optim(c(pars$gamma$shape, pars$gamma$rate), fn=qq_gamma_approx, target_qs=target_qs, n=n, distfun=distfun))
+    } else if (dist=='nb') {
+        return(optim(c(pars$nb$r, pars$nb$p), fn=qq_nb_approx, target_qs=target_qs, n=n, distfun=distfun))
     } else {
         stop('I don\'t have that distribution')
     }
@@ -79,6 +81,15 @@ qq_gamma_approx <- function(args, target_qs, n, distfun=sqdist) {
         return(Inf)
     } else {
         test_qs <- qgamma(1:n/(n+1), args[1], args[2])
+        return(distfun(target_qs, test_qs))
+    }
+}
+
+qq_nb_approx <- function(args, target_qs, n, distfun=sqdist) {
+    if (args[1] <= 0 | args[2] <= 0) {
+        return(Inf)
+    } else {
+        test_qs <- qnbinom(1:n/(n+1), args[1], args[2])
         return(distfun(target_qs, test_qs))
     }
 }
