@@ -14,6 +14,8 @@ make_tree_plot(y, x, cp = 0.1, pfx = "y", ...)
 \item{cp}{CART's complexity parameter thingy}
 
 \item{pfx}{Prefix for plot}
+
+\item{...}{additional arguments passed to rpart::rpart}
 }
 \description{
 Utility to make basic CART tree
