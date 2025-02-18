@@ -4,7 +4,7 @@
 \alias{make_tree_plot}
 \title{Utility to make basic CART tree}
 \usage{
-make_tree_plot(y, x, cp = 0.1, pfx = "y", ...)
+make_tree_plot(y, x, cp = 0.1, pfx = "y", print_cp_table = FALSE, ...)
 }
 \arguments{
 \item{y}{y}
@@ -14,6 +14,8 @@ make_tree_plot(y, x, cp = 0.1, pfx = "y", ...)
 \item{cp}{CART's complexity parameter thingy}
 
 \item{pfx}{Prefix for plot}
+
+\item{print_cp_table}{whether or not to print out the table of splits}
 
 \item{...}{additional arguments passed to rpart::rpart}
 }
